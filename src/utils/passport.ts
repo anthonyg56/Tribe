@@ -1,7 +1,7 @@
 import passport from 'passport'
 import bcrypt from 'bcrypt'
 import passportLocal from 'passport-local'
-// import passportJwt from 'passport-jwt'
+import passportJwt from 'passport-jwt'
 // import PassportGoogle from 'passport-google-oauth'
 import crypto from 'crypto'
 
@@ -11,8 +11,8 @@ import Tribe, { ITribeRole, MemberStatus } from '../models/tribe'
 import mongoose from 'mongoose'
 
 const LocalStrategy = passportLocal.Strategy
-// const JWTStrategy = passportJwt.Strategy
-// const ExtractJWT = passportJwt.ExtractJwt
+const JWTStrategy = passportJwt.Strategy
+const ExtractJWT = passportJwt.ExtractJwt
 // const GoogleStrategy = PassportGoogle.OAuth2Strategy
 
 passport.serializeUser<IUser, string>((user, done) => {
@@ -191,16 +191,16 @@ passport.use('signup', new LocalStrategy({ usernameField: "email", passReqToCall
 //   .catch(error => done(error))
 // }))
 
-// passport.use(new JWTStrategy({
-//   secretOrKey: process.env.JWT_SECRET,
-//   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
-// }, async (token, done) => {
-//   try {
-//     done(null, token.user)
-//   } catch (error) {
-//     console.log('error')
-//     done(error)
-//   }
-// }))
+passport.use(new JWTStrategy({
+  secretOrKey: process.env.JWT_SECRET,
+  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
+}, async (token, done) => {
+  try {
+    done(null, token.user)
+  } catch (error) {
+    console.log('error')
+    done(error)
+  }
+}))
 
 export default passport
