@@ -1,7 +1,6 @@
 import express, {Request} from 'express'
 import { Validator } from 'express-json-validator-middleware'
 
-import Transporter from '../utils/transporter'
 import Invite, { IInvite, InviteStatus } from '../models/invites'
 import Tribe, { MemberStatus } from '../models/tribe'
 import User from '../models/user'
@@ -70,14 +69,14 @@ InviteRouter.post('/invite', async (req, res) => {
     /* Save it before pushing it to the user document */
     await invite.save()
 
-    const mailOptions = {
-      from: process.env.SMTP_EMAIL,
-      to: toUser.email,
-      subject: `You've been invited to join ${tribe.name}`,
-      text: `Hello,\n\n Someone has invite you to join their tribe ${tribe.name}. Accept the invite and hop right into things by clicking the link:`
-    }
+    // const mailOptions = {
+    //   from: process.env.SMTP_EMAIL,
+    //   to: toUser.email,
+    //   subject: `You've been invited to join ${tribe.name}`,
+    //   text: `Hello,\n\n Someone has invite you to join their tribe ${tribe.name}. Accept the invite and hop right into things by clicking the link:`
+    // }
 
-    await Transporter.sendMail(mailOptions)
+    // await Transporter.sendMail(mailOptions)
 
     /* Push and then save */
     toUser.invites.push(invite.id)
@@ -134,14 +133,14 @@ InviteRouter.post('/email', async (req, res, next) => {
 
     await invite.save()
 
-    const mailOptions = {
-      from: process.env.SMTP_EMAIL,
-      to: email,
-      subject: `You've been invited to join ${tribe.name}`,
-      text: `Hello,\n\n Someone has invite you to join their tribe ${tribe.name}. Accept the invite and hop right into things by clicking the link:`
-    }
+    // const mailOptions = {
+    //   from: process.env.SMTP_EMAIL,
+    //   to: email,
+    //   subject: `You've been invited to join ${tribe.name}`,
+    //   text: `Hello,\n\n Someone has invite you to join their tribe ${tribe.name}. Accept the invite and hop right into things by clicking the link:`
+    // }
 
-    await Transporter.sendMail(mailOptions)
+    // await Transporter.sendMail(mailOptions)
 
     return res.json({
       message: `${email} was invited to ${tribe.name}!`

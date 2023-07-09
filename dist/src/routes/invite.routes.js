@@ -36,7 +36,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const transporter_1 = __importDefault(require("../utils/transporter"));
 const invites_1 = __importStar(require("../models/invites"));
 const tribe_1 = __importStar(require("../models/tribe"));
 const user_1 = __importDefault(require("../models/user"));
@@ -93,13 +92,13 @@ InviteRouter.post('/invite', (req, res) => __awaiter(void 0, void 0, void 0, fun
         });
         /* Save it before pushing it to the user document */
         yield invite.save();
-        const mailOptions = {
-            from: process.env.SMTP_EMAIL,
-            to: toUser.email,
-            subject: `You've been invited to join ${tribe.name}`,
-            text: `Hello,\n\n Someone has invite you to join their tribe ${tribe.name}. Accept the invite and hop right into things by clicking the link:`
-        };
-        yield transporter_1.default.sendMail(mailOptions);
+        // const mailOptions = {
+        //   from: process.env.SMTP_EMAIL,
+        //   to: toUser.email,
+        //   subject: `You've been invited to join ${tribe.name}`,
+        //   text: `Hello,\n\n Someone has invite you to join their tribe ${tribe.name}. Accept the invite and hop right into things by clicking the link:`
+        // }
+        // await Transporter.sendMail(mailOptions)
         /* Push and then save */
         toUser.invites.push(invite.id);
         yield toUser.save();
@@ -146,13 +145,13 @@ InviteRouter.post('/email', (req, res, next) => __awaiter(void 0, void 0, void 0
             tribe: tribe.id,
         });
         yield invite.save();
-        const mailOptions = {
-            from: process.env.SMTP_EMAIL,
-            to: email,
-            subject: `You've been invited to join ${tribe.name}`,
-            text: `Hello,\n\n Someone has invite you to join their tribe ${tribe.name}. Accept the invite and hop right into things by clicking the link:`
-        };
-        yield transporter_1.default.sendMail(mailOptions);
+        // const mailOptions = {
+        //   from: process.env.SMTP_EMAIL,
+        //   to: email,
+        //   subject: `You've been invited to join ${tribe.name}`,
+        //   text: `Hello,\n\n Someone has invite you to join their tribe ${tribe.name}. Accept the invite and hop right into things by clicking the link:`
+        // }
+        // await Transporter.sendMail(mailOptions)
         return res.json({
             message: `${email} was invited to ${tribe.name}!`
         });

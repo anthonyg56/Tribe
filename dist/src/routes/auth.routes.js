@@ -17,7 +17,6 @@ const passport_1 = __importDefault(require("passport"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const express_validator_1 = require("express-validator");
 const crypto_1 = __importDefault(require("crypto"));
-const nodemailer_1 = __importDefault(require("nodemailer"));
 // import stream from 'getstream'
 /* Mongoose Models */
 const token_1 = __importDefault(require("../models/token"));
@@ -204,27 +203,27 @@ AuthRouter.post('/email/resend', function (req, res, next) {
                     return res.status(500).send({ msg: err.message });
                 }
                 // Send the email
-                const transporter = nodemailer_1.default.createTransport({
-                    host: process.env.SMTP_HOST,
-                    port: 2525,
-                    auth: {
-                        user: process.env.SMTP_USER,
-                        pass: process.env.SMTP_PASSWORD
-                    }
-                });
-                const mailOptions = {
-                    from: process.env.SMTP_EMAIL,
-                    to: user.email,
-                    subject: 'Account Verification Token',
-                    text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/email\/confirm\/' + token.token + '.\n'
-                };
-                transporter.sendMail(mailOptions, function (err) {
-                    if (err) {
-                        console.log(err);
-                        return res.status(500).send({ msg: err.message });
-                    }
-                    res.status(200).send('A verification email has been sent to ' + user.email + '.');
-                });
+                // const transporter = nodemailer.createTransport({
+                //   host: process.env.SMTP_HOST,
+                //   port: 2525,
+                //   auth: {
+                //     user: process.env.SMTP_USER,
+                //     pass: process.env.SMTP_PASSWORD
+                //   }
+                // })
+                // const mailOptions = {
+                //   from: process.env.SMTP_EMAIL,
+                //   to: user.email,
+                //   subject: 'Account Verification Token',
+                //   text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/email\/confirm\/' + token.token + '.\n'
+                // }
+                // transporter.sendMail(mailOptions, function (err) {
+                //     if (err) {
+                //       console.log(err)
+                //       return res.status(500).send({ msg: err.message });
+                //     }
+                //     res.status(200).send('A verification email has been sent to ' + user.email + '.');
+                // });
             });
         });
     });

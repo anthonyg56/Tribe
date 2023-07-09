@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt'
 import passportLocal from 'passport-local'
 import passportJwt from 'passport-jwt'
 import PassportGoogle from 'passport-google-oauth'
-import nodemailer from 'nodemailer'
 import crypto from 'crypto'
 
 import User, { IUser } from '../models/user'
@@ -150,27 +149,27 @@ passport.use('signup', new LocalStrategy({ usernameField: "email", passReqToCall
 
     token.save()
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: 2525,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD
-      }
-    })
+    // const transporter = nodemailer.createTransport({
+    //   host: process.env.SMTP_HOST,
+    //   port: 2525,
+    //   auth: {
+    //     user: process.env.SMTP_USER,
+    //     pass: process.env.SMTP_PASSWORD
+    //   }
+    // })
 
-    const mailOptions = {
-      from: process.env.SMTP_EMAIL,
-      to: newUser.email,
-      subject: 'Account Verification Token',
-      text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/email\/confirm\/' + token.token + '.\n'
-    }
+    // const mailOptions = {
+    //   from: process.env.SMTP_EMAIL,
+    //   to: newUser.email,
+    //   subject: 'Account Verification Token',
+    //   text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/email\/confirm\/' + token.token + '.\n'
+    // }
 
-    transporter.sendMail(mailOptions, function (err) {
-      if (err) {
-        return done(err.message, user)
-      }
-    })
+    // transporter.sendMail(mailOptions, function (err) {
+    //   if (err) {
+    //     return done(err.message, user)
+    //   }
+    // })
 
     return done(null, newUser)
   } catch (err) {

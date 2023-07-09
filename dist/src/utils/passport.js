@@ -40,7 +40,6 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const passport_local_1 = __importDefault(require("passport-local"));
 const passport_jwt_1 = __importDefault(require("passport-jwt"));
 const passport_google_oauth_1 = __importDefault(require("passport-google-oauth"));
-const nodemailer_1 = __importDefault(require("nodemailer"));
 const crypto_1 = __importDefault(require("crypto"));
 const user_1 = __importDefault(require("../models/user"));
 const token_1 = __importDefault(require("../models/token"));
@@ -169,25 +168,25 @@ passport_1.default.use('signup', new LocalStrategy({ usernameField: "email", pas
             token: crypto_1.default.randomBytes(16).toString('hex'),
         });
         token.save();
-        const transporter = nodemailer_1.default.createTransport({
-            host: process.env.SMTP_HOST,
-            port: 2525,
-            auth: {
-                user: process.env.SMTP_USER,
-                pass: process.env.SMTP_PASSWORD
-            }
-        });
-        const mailOptions = {
-            from: process.env.SMTP_EMAIL,
-            to: newUser.email,
-            subject: 'Account Verification Token',
-            text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/email\/confirm\/' + token.token + '.\n'
-        };
-        transporter.sendMail(mailOptions, function (err) {
-            if (err) {
-                return done(err.message, user);
-            }
-        });
+        // const transporter = nodemailer.createTransport({
+        //   host: process.env.SMTP_HOST,
+        //   port: 2525,
+        //   auth: {
+        //     user: process.env.SMTP_USER,
+        //     pass: process.env.SMTP_PASSWORD
+        //   }
+        // })
+        // const mailOptions = {
+        //   from: process.env.SMTP_EMAIL,
+        //   to: newUser.email,
+        //   subject: 'Account Verification Token',
+        //   text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/email\/confirm\/' + token.token + '.\n'
+        // }
+        // transporter.sendMail(mailOptions, function (err) {
+        //   if (err) {
+        //     return done(err.message, user)
+        //   }
+        // })
         return done(null, newUser);
     }
     catch (err) {

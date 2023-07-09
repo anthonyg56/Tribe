@@ -3,7 +3,6 @@ import passport from 'passport'
 import jwt from 'jsonwebtoken'
 import { check, validationResult } from 'express-validator'
 import crypto from 'crypto'
-import nodemailer from 'nodemailer'
 // import stream from 'getstream'
 
 /* Mongoose Models */
@@ -215,29 +214,29 @@ AuthRouter.post('/email/resend', async function(req, res, next) {
         }
 
         // Send the email
-        const transporter = nodemailer.createTransport({
-          host: process.env.SMTP_HOST,
-          port: 2525,
-          auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASSWORD
-          }
-        })
+        // const transporter = nodemailer.createTransport({
+        //   host: process.env.SMTP_HOST,
+        //   port: 2525,
+        //   auth: {
+        //     user: process.env.SMTP_USER,
+        //     pass: process.env.SMTP_PASSWORD
+        //   }
+        // })
 
-        const mailOptions = {
-          from: process.env.SMTP_EMAIL,
-          to: user.email,
-          subject: 'Account Verification Token',
-          text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/email\/confirm\/' + token.token + '.\n'
-        }
+        // const mailOptions = {
+        //   from: process.env.SMTP_EMAIL,
+        //   to: user.email,
+        //   subject: 'Account Verification Token',
+        //   text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/auth\/email\/confirm\/' + token.token + '.\n'
+        // }
 
-        transporter.sendMail(mailOptions, function (err) {
-            if (err) {
-              console.log(err)
-              return res.status(500).send({ msg: err.message });
-            }
-            res.status(200).send('A verification email has been sent to ' + user.email + '.');
-        });
+        // transporter.sendMail(mailOptions, function (err) {
+        //     if (err) {
+        //       console.log(err)
+        //       return res.status(500).send({ msg: err.message });
+        //     }
+        //     res.status(200).send('A verification email has been sent to ' + user.email + '.');
+        // });
     });
   })
 })
