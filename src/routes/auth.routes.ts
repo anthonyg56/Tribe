@@ -76,7 +76,7 @@ AuthRouter.post('/login', [
       res
       .cookie('accessToken', token, {
         httpOnly: true,
-        sameSite: true
+        sameSite: "none"
       })
 
       return res.json({
