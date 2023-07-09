@@ -1,8 +1,8 @@
 import passport from 'passport'
 import bcrypt from 'bcrypt'
 import passportLocal from 'passport-local'
-import passportJwt from 'passport-jwt'
-import PassportGoogle from 'passport-google-oauth'
+// import passportJwt from 'passport-jwt'
+// import PassportGoogle from 'passport-google-oauth'
 import crypto from 'crypto'
 
 import User, { IUser } from '../models/user'
@@ -11,9 +11,9 @@ import Tribe, { ITribeRole, MemberStatus } from '../models/tribe'
 import mongoose from 'mongoose'
 
 const LocalStrategy = passportLocal.Strategy
-const JWTStrategy = passportJwt.Strategy
-const ExtractJWT = passportJwt.ExtractJwt
-const GoogleStrategy = PassportGoogle.OAuth2Strategy
+// const JWTStrategy = passportJwt.Strategy
+// const ExtractJWT = passportJwt.ExtractJwt
+// const GoogleStrategy = PassportGoogle.OAuth2Strategy
 
 passport.serializeUser<IUser, string>((user, done) => {
   done(null, user._id)
@@ -178,28 +178,29 @@ passport.use('signup', new LocalStrategy({ usernameField: "email", passReqToCall
   }
 }))
 
-passport.use(new GoogleStrategy({
-  clientID: process.env.GOOGLE_CLIENT_ID as string,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-  callbackURL: 'http://localhost:5000/auth/google/callback',
-}, async (accessToke, refreshToken, profile, done) => {
+// passport.use(new GoogleStrategy({
+//   clientID: process.env.GOOGLE_CLIENT_ID as string,
+//   clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+//   callbackURL: 'http://localhost:5000/auth/google/callback',
+// }, async (accessToke, refreshToken, profile, done) => {
 
-  await User.findOne({ googleId: profile.id })
-  .then(user => {
-    return done(null, profile)
-  })
-  .catch(error => done(error))
-}))
+//   await User.findOne({ googleId: profile.id })
+//   .then(user => {
+//     return done(null, profile)
+//   })
+//   .catch(error => done(error))
+// }))
 
-passport.use(new JWTStrategy({
-  secretOrKey: process.env.JWT_SECRET,
-  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
-}, async (token, done) => {
-  try {
-    done(null, token.user)
-  } catch (error) {
-    console.log('error')
-    done(error)
-  }
-}))
+// passport.use(new JWTStrategy({
+//   secretOrKey: process.env.JWT_SECRET,
+//   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
+// }, async (token, done) => {
+//   try {
+//     done(null, token.user)
+//   } catch (error) {
+//     console.log('error')
+//     done(error)
+//   }
+// }))
+
 export default passport

@@ -38,17 +38,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const passport_1 = __importDefault(require("passport"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const passport_local_1 = __importDefault(require("passport-local"));
-const passport_jwt_1 = __importDefault(require("passport-jwt"));
-const passport_google_oauth_1 = __importDefault(require("passport-google-oauth"));
+// import passportJwt from 'passport-jwt'
+// import PassportGoogle from 'passport-google-oauth'
 const crypto_1 = __importDefault(require("crypto"));
 const user_1 = __importDefault(require("../models/user"));
 const token_1 = __importDefault(require("../models/token"));
 const tribe_1 = __importStar(require("../models/tribe"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const LocalStrategy = passport_local_1.default.Strategy;
-const JWTStrategy = passport_jwt_1.default.Strategy;
-const ExtractJWT = passport_jwt_1.default.ExtractJwt;
-const GoogleStrategy = passport_google_oauth_1.default.OAuth2Strategy;
+// const JWTStrategy = passportJwt.Strategy
+// const ExtractJWT = passportJwt.ExtractJwt
+// const GoogleStrategy = PassportGoogle.OAuth2Strategy
 passport_1.default.serializeUser((user, done) => {
     done(null, user._id);
 });
@@ -194,28 +194,27 @@ passport_1.default.use('signup', new LocalStrategy({ usernameField: "email", pas
         return done(err, false, { message: err });
     }
 })));
-passport_1.default.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'http://localhost:5000/auth/google/callback',
-}, (accessToke, refreshToken, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
-    yield user_1.default.findOne({ googleId: profile.id })
-        .then(user => {
-        return done(null, profile);
-    })
-        .catch(error => done(error));
-})));
-passport_1.default.use(new JWTStrategy({
-    secretOrKey: process.env.JWT_SECRET,
-    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
-}, (token, done) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        done(null, token.user);
-    }
-    catch (error) {
-        console.log('error');
-        done(error);
-    }
-})));
+// passport.use(new GoogleStrategy({
+//   clientID: process.env.GOOGLE_CLIENT_ID as string,
+//   clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+//   callbackURL: 'http://localhost:5000/auth/google/callback',
+// }, async (accessToke, refreshToken, profile, done) => {
+//   await User.findOne({ googleId: profile.id })
+//   .then(user => {
+//     return done(null, profile)
+//   })
+//   .catch(error => done(error))
+// }))
+// passport.use(new JWTStrategy({
+//   secretOrKey: process.env.JWT_SECRET,
+//   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
+// }, async (token, done) => {
+//   try {
+//     done(null, token.user)
+//   } catch (error) {
+//     console.log('error')
+//     done(error)
+//   }
+// }))
 exports.default = passport_1.default;
 //# sourceMappingURL=passport.js.map
