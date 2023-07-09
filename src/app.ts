@@ -49,16 +49,16 @@ mongoose
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-    allowedHeaders:
-      "Origin, X-Requested-With, Content-Type, Accept, Authorization",
-    methods: "PUT, POST, DELETE, GET",
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000",
+//     credentials: true,
+//     allowedHeaders:
+//       "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+//     methods: "PUT, POST, DELETE, GET",
     
-  })
-);
+//   })
+// );
 app.use(cors({
   origin: "https://tribe-next-js.vercel.app",
     credentials: true,
