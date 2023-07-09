@@ -19,7 +19,7 @@ import CommentRouter from "./routes/comment.routes";
 // import ChatRouter from './routes/chat.routes';
 import NotificationRouter from "./routes/notification.routes";
 
-const port = 5000 || process.env.PORT;
+const port = process.env.PORT || 5000;
 const uri = process.env.DB_URI as string || "";
 const sessionKey = process.env.SESSION_SECRET as string || "";
 const app: Application = express();
@@ -130,7 +130,7 @@ app.get("/", (req, res, next) => {
  *
  * learn more: https://socket.io/docs/v4/server-instance/
  */
-EngineIO(io)
+// EngineIO(io)
 
 httpServer.listen(port, () => {
   console.log(`Server running on ${port}`);
