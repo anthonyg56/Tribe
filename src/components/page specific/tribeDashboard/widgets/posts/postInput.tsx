@@ -47,8 +47,11 @@ export default function PostInput(props: Props) {
   const checkFile = () => {
     if (!state.files) return
 
+    const fileType = state.files.name
+    const allowedExtensions = /(\.jpg|\.JPG|\.jpeg|\.png)$/i
+
     state.files.size > 10000000 ? fileCheckFailed("File size too big") : null
-    state.files.type !== ".jpg" ||  ".jpeg" || ".png"  ? fileCheckFailed("File type must be: .jpg, .jpeg, .png") : null
+    !allowedExtensions.exec(fileType)  ? fileCheckFailed("File type must be: .jpg, .jpeg, .png") : null
     state.files.length > 1 ? fileCheckFailed("Only one file at a time") : null
   }
   const { tribeId } = props
