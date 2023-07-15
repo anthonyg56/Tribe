@@ -54,7 +54,7 @@ const PostCard = (props: Props) => {
 
   const postedOn = {
     month: monthNames[date.getMonth()],
-    day: date.getDay(),
+    day: date.getDate(),
     year: date.getFullYear(),
   };
 

@@ -10,28 +10,21 @@ interface Props {
 }
 
 export default function Notifications(props: Props) {
-  const { isLoading, notifications, readNotifications } = useContext(NotificationContext) as TNotificationContext
+  const { readNotifications, unreadNotifications, readUnreadNotifications } = useContext(NotificationContext) as TNotificationContext
   const { userId } = useContext(AuthContext) as TAuthContext
 
   useEffect(() => {
-    return () => {
-      readNotifications()
-    }
+    readUnreadNotifications()
   }, [])
-
-  if (isLoading) return (
-    <div>...Data Loading</div>
-  )
-
-  console.log(notifications)
-
 
   return (
     <div className='z-10 flex top-0 right-0 absolute flex-row justify-center bg-white rounded-md border-2 border-solid border-black w-[300px]'>
       <div className='flex-col justify-center'>
         <h3 className='text-center my-3 font-semibold text-xl'>Notifications</h3>
         <div className='flex overflow-y-auto flex-col rounded-sm border-solid border-black w-[275px] h-[275px] mt-4 scrollbar-non'>
-          <NotificationList notifications={notifications} userId={userId} />
+          {!readNotifications.length && !unreadNotifications.length ? (<div>No notifications Available</div>) : null}
+          <NotificationList notifications={unreadNotifications} userId={userId} />
+          <NotificationList notifications={readNotifications} userId={userId} />
         </div> 
       </div>
     </div>

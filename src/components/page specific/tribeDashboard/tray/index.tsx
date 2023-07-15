@@ -1,6 +1,6 @@
-import CreateATribeBtn from './createATribeBtn';
-import TribesMap from './tribesMap';
-import InviteMap from './inviteMap';
+import CreateATribeBtn from './createATribe/createATribeBtn';
+import TribesMap from './tribes/tribesMap';
+import InviteMap from './invites/inviteMap';
 
 /**
  * Component that will basically act as the nav menu between different tribes,

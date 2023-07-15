@@ -2,7 +2,7 @@
 
 import { AppContext, TAppContext } from '@/utils/contexts/App';
 import { AuthContext, TAuthContext } from '@/utils/contexts/Auth';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { createPost } from '@/utils/api/posts';
 import { useSWRConfig } from 'swr';
@@ -32,12 +32,33 @@ export default function PostInput(props: Props) {
     content: "",
     files: undefined,
   });
+  
+  /* When the component mounts and an image is upload, check the file */
+  useEffect(() => {
+    checkFile()
+  }, [state.files])
 
+  /* when a user uploads a file, if it failed the check clear tmpfiles and alert the user why */
+  const fileCheckFailed = (message: string) => {
+    alert(message) 
+    setState({ ...state, files: undefined})
+  }
+
+  const checkFile = () => {
+    if (!state.files) return
+
+    state.files.size > 10000000 ? fileCheckFailed("File size too big") : null
+    state.files.type !== ".jpg" ||  ".jpeg" || ".png"  ? fileCheckFailed("File type must be: .jpg, .jpeg, .png") : null
+    state.files.length > 1 ? fileCheckFailed("Only one file at a time") : null
+  }
   const { tribeId } = props
 
   const { userId } = useContext(AuthContext) as TAuthContext;
+
   const { user } = useContext(AppContext) as TAppContext
+
   const { mutate } = useSWRConfig()
+  
   const uploadFiles = (e: any) => {
     e.preventDefault();
 

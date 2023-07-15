@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { mutate } from 'swr'
 
@@ -46,6 +46,25 @@ export default function NewTribeForm(props: Props) {
   const router = useRouter()
 
   const btnRef = useRef<any>();
+
+  /* When the component mounts and an image is upload, check the file */
+  useEffect(() => {
+    checkFile()
+  }, [state.avatar])
+
+  /* when a user uploads a file, if it failed the check clear tmpavatar and alert the user why */
+  const fileCheckFailed = (message: string) => {
+    alert(message) 
+    setState({ ...state, avatar: undefined})
+  }
+
+  const checkFile = () => {
+    if (!state.avatar) return
+
+    state.avatar.size > 10000000 ? fileCheckFailed("File size too big") : null
+    state.avatar.type !== ".jpg" ||  ".jpeg" || ".png"  ? fileCheckFailed("File type must be: .jpg, .jpeg, .png") : null
+    state.avatar.length > 1 ? fileCheckFailed("Only one file at a time") : null
+  }
 
   const avatarSrc = !state.avatar ? '/default-avatar.png' : URL.createObjectURL(state.avatar)
 

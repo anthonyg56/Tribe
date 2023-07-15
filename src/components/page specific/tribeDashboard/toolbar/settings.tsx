@@ -56,6 +56,25 @@ export default function TribeSettings(props: Props) {
     })
   }, [])
 
+  /* When the component mounts and an image is upload, check the file size. It cant be bigger than 10mb */
+  useEffect(() => {
+    checkFile()
+  }, [state.avatar])
+
+  /* when a user uploads a file, if it failed the check clear tmpavatar and alert the user why */
+  const fileCheckFailed = (message: string) => {
+    alert(message) 
+    setState({ ...state, avatar: undefined})
+  }
+
+  const checkFile = () => {
+    if (!state.avatar) return
+
+    state.avatar.size > 10000000 ? fileCheckFailed("File size too big") : null
+    state.avatar.type !== ".jpg" ||  ".jpeg" || ".png"  ? fileCheckFailed("File type must be: .jpg, .jpeg, .png") : null
+    state.avatar.length > 1 ? fileCheckFailed("Only one file at a time") : null
+  }
+
   const btnRef = useRef<any>()
 
   const LeftButton = () => (
@@ -74,7 +93,8 @@ export default function TribeSettings(props: Props) {
     btnRef.current.setAttribute("disabled", "disabled")
 
     /* Check if a user has permission first */
-
+    console.log(tribeId)
+    console.log(homeTribe)
     if (tribeId === homeTribe) {
       alert('You cannot delete your home tribe')
       setState({
@@ -89,11 +109,13 @@ export default function TribeSettings(props: Props) {
 
       handleModal(null, false)
 
+      router.push(`/${userId}/${homeTribe}`)
+
       alert('Tribe has been deleted')
 
       // removeTribeFromTray(tribeId)
 
-      router.push(`${BaseUrl}/${userId}/${homeTribe}`)
+      
     }
 
     /* Add logic for leaving a tribe Here */

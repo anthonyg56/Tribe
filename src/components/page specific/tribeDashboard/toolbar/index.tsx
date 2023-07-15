@@ -71,7 +71,7 @@ export default function Toolbar(props: Props) {
       handleModal(<TribeSettings
         avatarUrl={tribe?.avatar ? tribe.avatar.url : undefined}
         tribeDescription={tribe?.description as string}
-        tribeId={currentTribe?._id as string}
+        tribeId={tribe?._id as string}
         tribeName={tribe?.name as string}
         owner={owner?._id._id as string}
       />, true, "h-auto")

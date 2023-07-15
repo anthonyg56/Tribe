@@ -2,7 +2,7 @@
 
 import { useContext } from "react"
 
-import TrayItem from "./trayItem"
+import TrayItem from "../trayItem"
 
 import { AppContext, TAppContext } from "@/utils/contexts/App"
 

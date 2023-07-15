@@ -1,6 +1,6 @@
 import { TAvatar } from '@/@types/utils';
-import TribeLink from './tribeLink';
-import TribeInvite from './tribeInvite';
+import TribeLink from './tribes/tribeLink';
+import TribeInvite from './invites/tribeInvite';
 
 interface Props {
   inviteId?: string;

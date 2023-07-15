@@ -1,7 +1,7 @@
 "use client"
 import { ModalContext, TModalContext } from '@/utils/contexts/Modal';
 import React, { useContext } from 'react'
-import NewTribeForm from './newTribeForm';
+import NewTribeForm from './createATribeForm';
 import { AppContext, TAppContext } from '@/utils/contexts/App';
 
 /**
@@ -12,7 +12,6 @@ export default function CreateATribeBtn() {
   const { handleModal } = useContext(ModalContext) as TModalContext;
   const { user } = useContext(AppContext) as TAppContext
 
-  console.log(user)
   const createATribe = (e: any) => {
     e.preventDefault()
     handleModal(<NewTribeForm user={user}/>, true, " ")

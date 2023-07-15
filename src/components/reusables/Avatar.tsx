@@ -99,12 +99,10 @@ export default function Avatar(props: Props) {
 
     return (
       <div className='h-full w-full'>
-        <Image
+        <img
           className='shadow-lg'
           src={imgSrc ? imgSrc : '/default-avatar.png'}
           alt={imgAlt ? imgAlt : 'default avatar'}
-          height={0}
-          width={0}
           style={styles}
         />
       </div>

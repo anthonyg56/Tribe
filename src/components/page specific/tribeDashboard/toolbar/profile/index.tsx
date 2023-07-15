@@ -3,7 +3,7 @@
 import { AppContext, TAppContext } from '@/utils/contexts/App';
 import { AuthContext, TAuthContext } from '@/utils/contexts/Auth';
 import { BaseUrl, capitalize } from '@/utils/misc/constants';
-import React, { Fragment, useContext, useState } from 'react'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
 import { mutate } from 'swr';
 import UpdateEmailForm from './email';
 import UpdateUserNameForm from './userName';
@@ -48,6 +48,25 @@ export default function Profile(props: Props) {
   const { handleModal } = useContext(ModalContext) as TModalContext
   const { user } = props
 
+  /* When the component mounts and an image is upload, check the file size. It cant be bigger than 10mb */
+  useEffect(() => {
+    checkFile()
+  }, [tmpAvatar])
+
+  /* when a user uploads a file, if it failed the check clear tmpavatar and alert the user why */
+  const fileCheckFailed = (message: string) => {
+    alert(message) 
+    setAvatar(undefined)
+  }
+
+  const checkFile = () => {
+    if (!tmpAvatar) return
+
+    tmpAvatar.size > 10000000 ? fileCheckFailed("File size too big") : null
+    tmpAvatar.type !== ".jpg" ||  ".jpeg" || ".png"  ? fileCheckFailed("File type must be: .jpg, .jpeg, .png") : null
+    tmpAvatar.type.length > 1 ? fileCheckFailed("Only one file at a time") : null
+  }
+
   const showFourm = (
     formView: FourmViews,
     e?: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -62,6 +81,7 @@ export default function Profile(props: Props) {
 
     if (tmpAvatar) {
       let formData = new FormData();
+
       formData.append("avatar", tmpAvatar, tmpAvatar.name);
 
       const response = await updateAvatar(userId, formData);

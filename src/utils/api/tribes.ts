@@ -114,7 +114,7 @@ export const readNotificationsReq = async (userId: string, unreadNotifications: 
         "Content-Type": "application/json"
       },
       credentials: "include",
-      body: JSON.stringify({ notificationId: unreadNotifications, userId })
+      body: JSON.stringify({ notificationIds: unreadNotifications, userId })
     }
 
     return await CustomHttpRequest<IResponseBody>(url, requestOptions)

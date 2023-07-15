@@ -43,7 +43,7 @@ const TribeLink = (props: Props) => {
       {/* <div className="mr-auto text-white hover:text-primary">
         <p className="m-0">{capitalize(props.name)}</p>
       </div> */}
-      <TrayNotification tribeId={props.tribeId} />
+      <TrayNotification tribeId={props.tribeId} userId={userId} />
     </div>
   )
 }

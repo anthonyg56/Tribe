@@ -6,6 +6,7 @@ import React from 'react'
 interface Props {
   notifications: INotification[] | null;
   userId: string;
+  read?: boolean;
 }
 
 export default function NotificationList(props: Props) {
@@ -20,7 +21,7 @@ export default function NotificationList(props: Props) {
     }
 
     return (
-      <div className='bg-inputBgGrey py-5 px-5 rounded-xl shadow-md mb-5'>
+      <div key={data._id} className='bg-inputBgGrey py-5 px-5 rounded-xl shadow-md mb-5'>
         <div className='flex flex-row'>
           <Avatar
             expandAvatar={false}
