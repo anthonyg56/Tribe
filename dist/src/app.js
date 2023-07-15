@@ -46,21 +46,19 @@ mongoose_1.default
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000",
-//     credentials: true,
-//     allowedHeaders:
-//       "Origin, X-Requested-With, Content-Type, Accept, Authorization",
-//     methods: "PUT, POST, DELETE, GET",
-//   })
-// );
 app.use((0, cors_1.default)({
-    origin: "https://tribe-next-js.vercel.app",
+    origin: "http://localhost:3000",
     credentials: true,
     allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Authorization",
     methods: "PUT, POST, DELETE, GET",
 }));
+// app.use(cors({
+//   origin: "https://tribe-next-js.vercel.app",
+//     credentials: true,
+//     allowedHeaders:
+//       "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+//     methods: "PUT, POST, DELETE, GET",
+// }));
 app.use((req, res, next) => {
     if (req.cookies) {
         const token = req.cookies.accessToken;

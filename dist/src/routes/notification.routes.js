@@ -39,17 +39,24 @@ NotificationRouter.get('/:tribeId', (req, res) => __awaiter(void 0, void 0, void
 /* Read notifications upon viewing it */
 NotificationRouter.put('/read', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { notificationIds, userId } = req.body;
-    console.log(req.body);
-    console.log(userId);
     try {
+        /* Find all the notifications in an array */
         const notifications = yield notifications_1.default.find({ '_id': { $in: notificationIds } });
-        if (!notifications) {
+        /* IF there are no notifications return */
+        if (!notifications.length) {
             return res.json({
                 ok: false,
                 message: 'No notifications available',
             });
         }
+        /* Transverse the array to read all the notifications */
         for (let i = 0; i < notifications.length; i++) {
+            const userObjectId = new mongoose_1.default.Types.ObjectId(userId);
+            /* Check if a user has already read the notification */
+            const isRead = notifications[i].read_by.findIndex(user => String(user.userId) === String(userObjectId));
+            if (isRead === 0)
+                return;
+            /* if the user has not read the notification, go ahead and push them into the array */
             notifications[i].read_by.push({
                 userId,
                 dateRead: new Date().toISOString()
@@ -63,6 +70,36 @@ NotificationRouter.put('/read', (req, res) => __awaiter(void 0, void 0, void 0, 
     }
     catch (err) {
         console.log(err);
+    }
+}));
+/* Get all of a tribes unread notifications for a user */
+NotificationRouter.get('/unread/:tribeId/:userId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { tribeId, userId } = req.params;
+    try {
+        const objectId = new mongoose_1.default.Types.ObjectId(tribeId);
+        const tribeNotifications = yield notifications_1.default.find({ 'reciever': objectId }).populate('sender', ['name', 'avatar']);
+        const unreadNotifications = tribeNotifications.filter(notification => {
+            const { read_by } = notification;
+            const userObjectId = new mongoose_1.default.Types.ObjectId(userId);
+            const userIndex = read_by.findIndex(({ userId: id }) => String(id) === String(userObjectId));
+            if (userIndex !== 0) {
+                return notification._id;
+            }
+            return;
+        });
+        console.log(unreadNotifications);
+        return res.json({
+            ok: true,
+            message: 'Notifications found',
+            notifications: unreadNotifications
+        });
+    }
+    catch (err) {
+        console.log(err);
+        return res.json({
+            message: 'There was an error searching for the notifications, please try again',
+            ok: false
+        });
     }
 }));
 exports.default = NotificationRouter;

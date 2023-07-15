@@ -22,7 +22,7 @@ exports.default = () => (0, multer_1.default)({
         cb(null, true);
     },
     limits: {
-        fileSize: 1024 * 1024 * 5
+        fileSize: 10000000 // 10 mb
     }
 });
 //# sourceMappingURL=multer.js.map

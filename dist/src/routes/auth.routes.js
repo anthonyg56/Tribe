@@ -130,7 +130,11 @@ AuthRouter.post('/logout', function (req, res) {
                 message: "There was an error trying to log you out"
             });
         }
-        res.clearCookie('accessToken');
+        res.clearCookie('accessToken', {
+            httpOnly: true,
+            sameSite: "none",
+            secure: true,
+        });
         res.clearCookie('connect.sid');
         return res.json({
             message: 'User logged out'

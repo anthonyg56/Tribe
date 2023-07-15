@@ -12,13 +12,13 @@ export default () => multer({
   }),
   fileFilter: (req, file, cb) => {
     let ext = path.extname(file.originalname);
-      if (ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png") {
+    if (ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png") {
       return cb(new Error("File type is not supported"));
     }
     cb(null, true);
   },
   limits: {
-    fileSize: 1024 * 1024 * 5
+    fileSize: 10000000 // 10 mb
   }
 })
 
