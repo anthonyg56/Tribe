@@ -60,10 +60,10 @@ Tribe initally was meant to be used by others people on college campuses, but th
 
 ## Lessons Learned
 
-Before Tribe, I was only accustumed to creating websites on the client that were either static or connected to an external API. This was my first attempt at building a full stack application in the tradition sense, and i learned:
+Before Tribe, I was only accustumed to creating websites on the client that were either static or connected to an external API. This was my first attempt at building a full stack application in the traditional sense, and I learned:
 - **How the client and server communications**
 - **What goes into a standalone server handling API requests**
-- **The process of actualizing an idea with software**
+- **The process of using Fullstack software to actualize an idea**
   
 ## License
 
