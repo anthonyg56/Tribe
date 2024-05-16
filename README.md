@@ -7,9 +7,9 @@ Tribes mission is to help cultivate an online environment that empowers users to
 
 ## Live Demo
 
-Publicly being hosted at https://tribe-next-js.vercel.app/. If you're curious about what the process looked look to take tribe from ideation to code then you can check out a post I made on [my page](https://www.anthonygayflor.com/tribe)
+Watch this [video](https://youtu.be/tTLaZmiHzao) for a demo of tribes vision. It is also publicly being hosted at https://tribe-next-js.vercel.app/ but due to inactivity the database might be down. 
 
-## Problem to solve
+## Problem to Solve
 
 During the 2020 pandemic, social media platforms were the most active they had even been as well as the most obnoxious. No matter where you went, you could find irrelevant "noise" (posts) from users you dont know, but somehow they ended up on your feed. This was making it difficult to find meaningful content from the people you cared about at the time.
 
@@ -18,6 +18,10 @@ Our solution to this problem was to provide private online spaces called Tribes 
 ## Motivation
 
 Tribe initally was meant to be used by others people on college campuses, but the project died before release. Despite this, I wanted to complete it because it would be a good project to have on my resume once I decide to start job hunting; as well as a great learning opprounity to understand fullstack development.
+
+## Process Taken
+
+If you're curious about what the process looked looked to take tribe from ideation to a live website then you can check out a post I made on [my page](https://www.anthonygayflor.com/tribe).
 
 ## Tech Stack
 
