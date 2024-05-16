@@ -9,17 +9,6 @@ Tribes mission is to help cultivate an online environment that empowers users to
 
 Publicly being hosted at https://tribe-next-js.vercel.app/. If you're curious about what the process looked look to take tribe from ideation to code then you can check out a post I made on [my page](https://www.anthonygayflor.com/tribe)
 
-## Table of Content
-- [Tribe (2020)](#tribe-2020)
-  - [Live Demo](#live-demo)
-  - [Table of Content](#table-of-content)
-  - [Problem to solve](#problem-to-solve)
-  - [Motivation](#motivation)
-  - [Tech Stack](#tech-stack)
-  - [Features](#features)
-  - [Screenshots](#screenshots)
-  - [Lessons Learned](#lessons-learned)
-  - [License](#license)
 ## Problem to solve
 
 During the 2020 pandemic, social media platforms were the most active they had even been as well as the most obnoxious. No matter where you went, you could find irrelevant "noise" (posts) from users you dont know, but somehow they ended up on your feed. This was making it difficult to find meaningful content from the people you cared about at the time.
